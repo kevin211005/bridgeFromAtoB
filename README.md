@@ -38,3 +38,4 @@ To find method for each control type:
 https://pywinauto.readthedocs.io/en/latest/controls_overview.html
 
 ## Video Demo
+[Screen Recording - Made with FlexClip.webm](https://github.com/kevin211005/bridgeFromAtoB/assets/86145579/7bc75fc1-ff27-4ae0-b7f1-c8f613e29a6c)
