@@ -7,7 +7,7 @@ Created on Mon Oct  2 01:15:31 2023
 from pywinauto.application import Application
 import pywinauto
 import time
-
+from pywinauto import Desktop
 class OpenApplicationFailed(Exception):
     def __init__(self, msg = ""):    
         super().__init__(msg)
@@ -44,13 +44,14 @@ def SentTextFromAToB(sourceAppName, targeAppName):
         try:
             app_source = pywinauto.Desktop(backend="uia").window(title=sourceAppName)
             app_target = pywinauto.Desktop(backend="uia").window(title=targeAppName)
+            app_source.print_control_identifiers()
             #Listen to application A text changed
             while True:
-                currentText = " ".join(app_source.child_window(auto_id="TextField1", control_type="Edit").wrapper_object().texts())
+                currentText = " ".join(app_source.child_window(auto_id="TxtBarcode", control_type="Edit").wrapper_object().texts())
                 if text != currentText:
                     text = currentText
                     ## set Text to text field in target Application
-                    app_target.child_window(auto_id="TargetTextField", control_type="Edit").wrapper_object().set_text(text = text)     
+                    app_target.child_window(auto_id="TxtBarcode", control_type="Edit").wrapper_object().set_text(text = text)     
                     print("Changing Text in target Application suceess")
                 else:
                     print("Text in soure has not been changed")
@@ -63,8 +64,15 @@ def SentTextFromAToB(sourceAppName, targeAppName):
             time.sleep(5)
             
 if __name__ == '__main__':
-    # app = pywinauto.Desktop(backend="uia").window(title="Target")
-    # app.print_control_identifiers() 尋找控制項的名稱
-    SentTextFromAToB("Source", "Target")
+    desktop = Desktop(backend="uia")
+    
+    # Iterate through the windows on the desktop
+    # for window in desktop.windows():
+    #     print("Window Title:", window.window_text())
+    #     print("Class Name:", window.class_name())
+    #     print("-" * 40)
+
+    # app.print_control_identifiers() ##尋找控制項的名稱
+    SentTextFromAToB("AOI  –  SQX", "AOI")
     
     
